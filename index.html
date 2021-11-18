@@ -161,7 +161,12 @@
                   </tbody>
                 </table>
                 <p id="orderPrice" class="text-end">NT$ {{orderPrice}}</p>
-                <button v-on:click="orderDetail(tempForm)" class="btn btn-sm btn-secondary w-100" style="height: 50px">
+                <button
+                  v-bind:disabled="orderPrice === 0"
+                  v-on:click="orderDetail(tempForm)"
+                  class="btn btn-sm btn-danger w-100"
+                  style="height: 50px"
+                >
                   產生訂單
                 </button>
               </div>
@@ -473,5 +478,23 @@
     /* #myMenu:focus {
       background-color: tomato;
     } */
+    .btn-danger {
+      background-color: #ee92c2;
+      border-color: #ee92c2;
+    }
+    .btn-danger:hover {
+      background-color: #e20874;
+      background-color: #e20874;
+    }
+    .btn-outline-danger {
+      color: #e20874;
+      border-color: #e20874;
+    }
+    .btn-outline-danger:hover {
+      background-color: #e20874;
+      border-color: #e20874;
+    }
+    .active {
+    }
   </style>
 </html>
