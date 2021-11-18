@@ -12,29 +12,18 @@
       crossorigin="anonymous"
     />
   </head>
-  <style>
-    body {
-      background-image: url("./Image/001.jpg");
-      background-color: #cccccc;
-      height: 600px;
-      background-position: center;
-      background-repeat: no-repeat;
-      /* background-size: cover; */
-      position: relative;
-    }
-    #app {
-      font-size: large;
-      font-weight: bold;
-    }
-  </style>
+
   <body class="container">
+    <div style="height: 50px"></div>
     <div id="app">
       <div class="container gx-2">
-        <div class="row gx-3 bg-light py-3">
+        <div class="row gx-3 bg-light py-3" style="opacity: 0.95">
           <div class="col-md-4">
             <div class="list-group">
               <!-- v-on:click="tempObj(item)" 是抓 (item , key) in products 的 item-->
               <a
+                id="myMenu"
+                :style="menu"
                 href="#"
                 v-for="(item , key) in products"
                 :key="item.name"
@@ -67,7 +56,7 @@
               <div
                 v-if="!temp.hasOwnProperty('name')"
                 class="position-absolute text-white d-flex align-items-center justify-content-center"
-                style="top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 0, 0.65); z-index: 100"
+                style="top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 0, 0.8); z-index: 100"
               >
                 請先選擇飲品
               </div>
@@ -137,8 +126,8 @@
                   <textarea v-model="temp.remark" class="form-control" id="productNotice" rows="2"></textarea>
                 </div>
                 <div class="d-flex gap-2">
-                  <button v-on:click="Clear()" class="btn btn-outline-primary w-100" type="button">取消</button>
-                  <button v-on:click="addTempForm(temp)" class="btn btn-primary w-100" type="button">加入</button>
+                  <button v-on:click="Clear()" class="btn btn-outline-danger w-100" type="button">取消</button>
+                  <button v-on:click="addTempForm(temp)" class="btn btn-danger w-100" type="button">加入</button>
                 </div>
               </div>
             </div>
@@ -172,14 +161,16 @@
                   </tbody>
                 </table>
                 <p id="orderPrice" class="text-end">NT$ {{orderPrice}}</p>
-                <button v-on:click="orderDetail(tempForm)" class="btn btn-sm btn-secondary w-100">產生訂單</button>
+                <button v-on:click="orderDetail(tempForm)" class="btn btn-sm btn-secondary w-100" style="height: 50px">
+                  產生訂單
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="bg-light p-3 mt-3">
-        <div class="bg-white p-3 d-flex flex-column" style="min-height: 450px">
+      <div class="bg-light p-3 mt-3" style="opacity: 0.9">
+        <div class="bg-white p-3 d-flex flex-column" style="min-height: 400px">
           <table class="table">
             <thead>
               <tr>
@@ -214,6 +205,7 @@
         </div>
       </div>
     </div>
+    <div style="height: 100px"></div>
   </body>
   <script src="https://unpkg.com/vue@next"></script>
 
@@ -221,6 +213,9 @@
     const App = {
       data() {
         return {
+          menu: {
+            // backgroundColor: "lightblue",
+          },
           iceType: ["正常冰", "少冰", "微冰", "去冰", "熱"],
           sugarType: ["全糖", "七分", "半糖", "三分", "無糖"],
           toppingsType: ["珍珠", "粉條", "小粉圓", "椰果", "芋頭"],
@@ -460,4 +455,23 @@
 
     Vue.createApp(App).mount("#app");
   </script>
+  <style>
+    body {
+      background-image: url("./Image/001.jpg");
+      background-color: #cccccc;
+      height: 600px;
+      background-position: center;
+      /* background-repeat: no-repeat; */
+      background-attachment: fixed;
+      /* background-size: cover; */
+      position: relative;
+    }
+    #app {
+      font-size: large;
+      font-weight: bold;
+    }
+    /* #myMenu:focus {
+      background-color: tomato;
+    } */
+  </style>
 </html>
