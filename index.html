@@ -84,6 +84,7 @@
                       type="radio"
                       v-bind:id="item"
                       :value="item"
+                      v-bind:disabled="myToppings === '熱'"
                     />
                     <label class="form-check-label" v-bind:for="item">{{ item }}</label>
                   </div>
@@ -91,7 +92,6 @@
                 <div class="mb-3">
                   <label for="productNum" class="form-label d-block">甜度*</label>
                   <div v-for="(sugar , key) in sugarType" :key="sugar" class="form-check form-check-inline">
-                    <!-- v-bind:disabled="temp.defaults.sugar === '全糖'" -->
                     <input
                       v-model="temp.sugar"
                       class="form-check-input"
@@ -99,6 +99,7 @@
                       type="radio"
                       v-bind:id="sugar"
                       :value="sugar"
+                      v-bind:disabled="myToppings === '全糖'"
                     />
                     <label class="form-check-label" v-bind:for="sugar">{{ sugar }}</label>
                   </div>
@@ -110,7 +111,7 @@
                     :key="myToppings + key"
                     class="form-check form-check-inline"
                   >
-                    <!-- v-bind:disabled="temp.defaults.toppings === 珍珠" -->
+                    <!-- v-bind:disabled="products.defaults.toppings === '珍珠'" -->
                     <input
                       v-model="temp.toppings"
                       class="form-check-input"
@@ -384,8 +385,8 @@
             toppings: [],
             // 如果item.defaults.sugar or ice !="" ? item.defaults.sugar or ice : "預設"
             // 此時是判斷還未輸出
-            sugar: item.defaults.sugar != "" ? item.defaults.sugar : "正常冰",
-            ice: item.defaults.ice != "" ? item.defaults.ice : "無糖",
+            sugar: item.defaults.sugar != "" ? item.defaults.sugar : "無糖",
+            ice: item.defaults.ice != "" ? item.defaults.ice : "正常冰",
             remark: "",
             ...item,
           };
