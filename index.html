@@ -129,14 +129,17 @@
                     :key="myToppings + key"
                     class="form-check form-check-inline"
                   >
-                    <!-- v-bind:disabled="products.defaults.toppings === '珍珠'" -->
+                    <!-- 原方法，錯誤 會讓每個珍珠都出不來 disabled="myToppings === '珍珠'" -->
+                    <!-- hasOwnProperty 判斷 物件 是否有此屬屬性 -->
+                    <!-- includes 判斷 陣列 內是否有 -->
+                    <!-- temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes(myToppings) -->
                     <input
                       v-model="temp.toppings"
                       class="form-check-input"
                       type="checkbox"
                       v-bind:id="myToppings"
                       :value="myToppings"
-                      v-bind:disabled="temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes(myToppings)"
+                      v-bind:disabled="temp.hasOwnProperty('defaults') && temp.defaults.toppings.includes(myToppings)"
                     />
                     <label class="form-check-label" v-bind:for="myToppings">{{ myToppings }}</label>
                   </div>
