@@ -62,7 +62,7 @@
               </div>
               <div class="card-body px-4">
                 <div class="mb-3">
-                  <label for="productNum" class="form-label">數量</label>
+                  <label for="productNum" class="form-label title">♡ 數量</label>
                   <!-- v-model(寫入資料，要先有倉庫) -->
                   <input
                     v-model="temp.count"
@@ -75,7 +75,7 @@
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="productNum" class="form-label d-block">冰塊*</label>
+                  <label for="productNum" class="form-label d-block title">♡ 冰塊*</label>
                   <div v-for="(item , key) in iceType" :key="item" class="form-check form-check-inline">
                     <input
                       v-model="temp.ice"
@@ -84,13 +84,13 @@
                       type="radio"
                       v-bind:id="item"
                       :value="item"
-                      v-bind:disabled="myToppings === '熱'"
+                      v-bind:disabled="iceDisable"
                     />
                     <label class="form-check-label" v-bind:for="item">{{ item }}</label>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="productNum" class="form-label d-block">甜度*</label>
+                  <label for="productNum" class="form-label d-block title">♡ 甜度*</label>
                   <div v-for="(sugar , key) in sugarType" :key="sugar" class="form-check form-check-inline">
                     <input
                       v-model="temp.sugar"
@@ -99,13 +99,31 @@
                       type="radio"
                       v-bind:id="sugar"
                       :value="sugar"
-                      v-bind:disabled="myToppings === '全糖'"
+                      v-bind:disabled="sugarDisable"
                     />
                     <label class="form-check-label" v-bind:for="sugar">{{ sugar }}</label>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="productNum" class="form-label d-block">加料</label>
+                  <p for="productNum" class="title">♡ 加料 ( +5元 )</p>
+                  <div>
+                    <p
+                      class="text-secondary"
+                      v-if="temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes('珍珠')"
+                    >
+                      無法加珍珠
+                    </p>
+                    <p v-else="temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes('珍珠')"></p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-secondary"
+                      v-if="temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes('椰果')"
+                    >
+                      無法加椰果
+                    </p>
+                    <p v-else="temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes('椰果')"></p>
+                  </div>
                   <div
                     v-for="(myToppings , key) in toppingsType"
                     :key="myToppings + key"
@@ -118,12 +136,13 @@
                       type="checkbox"
                       v-bind:id="myToppings"
                       :value="myToppings"
+                      v-bind:disabled="temp.hasOwnProperty('defaults')&& temp.defaults.toppings.includes(myToppings)"
                     />
                     <label class="form-check-label" v-bind:for="myToppings">{{ myToppings }}</label>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="productNotice" class="form-label">備註</label>
+                  <label for="productNotice" class="form-label title">♡ 備註</label>
                   <textarea v-model="temp.remark" class="form-control" id="productNotice" rows="2"></textarea>
                 </div>
                 <div class="d-flex gap-2">
@@ -364,6 +383,18 @@
           pay: false,
         };
       },
+      // 監聽
+      computed: {
+        // 冰塊是否可調整
+        iceDisable() {
+          console.log("ice", this.temp);
+          return this.temp.ice === "熱" ? true : false;
+        },
+        // 甜度是否可調整
+        sugarDisable() {
+          return this.temp.sugar === "全糖" ? true : false;
+        },
+      },
       methods: {
         tempObj(item) {
           // 把倉庫抓來增加預設值(=)
@@ -485,7 +516,6 @@
     }
     .btn-danger:hover {
       background-color: #e20874;
-      background-color: #e20874;
     }
     .btn-outline-danger {
       color: #e20874;
@@ -495,7 +525,8 @@
       background-color: #e20874;
       border-color: #e20874;
     }
-    .active {
+    .title {
+      color: #e20874;
     }
   </style>
 </html>
